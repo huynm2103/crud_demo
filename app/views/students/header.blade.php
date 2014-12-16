@@ -2,5 +2,6 @@
 <html>
     <head>
         <title>Students</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!--include css-->
+        {{ HTML::style('css/bootstrap.min.css'); }}
     </head>

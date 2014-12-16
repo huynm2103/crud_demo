@@ -1,12 +1,6 @@
 <!-- app/views/students/create.blade.php -->
 
-<!--    @include('students.header')-->
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Students</title>
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-    </head>
+    @include('students.header')
     <body>
         <div class="container">
 

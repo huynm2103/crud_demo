@@ -1,11 +1,5 @@
 <!-- app/views/students/edit.blade.php -->
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Students</title>
-        <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    </head>
+    @include('students.header')
     <body>
         <div class="container">
 
@@ -15,7 +9,6 @@
 
             <!-- if there are creation errors, they will show here -->
             {{ HTML::ul($errors->all()) }}
-
 
             <form method="POST" action="{{ URL::to('students/'.$student->id ) }}">
                 <input name="_method" type="hidden" value="PUT" />
