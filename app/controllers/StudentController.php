@@ -52,10 +52,10 @@ class StudentController extends \BaseController {
         } else {
             // store
             $student = new Student();
-            $student->name       = Input::get('name');
-            $student->email      = Input::get('email');
+            $student->name      = Input::get('name');
+            $student->email     = Input::get('email');
             $student->birth_day = Input::get('birth_day');
-            $student->sex = Input::get('sex');
+            $student->sex       = Input::get('sex');
             $student->save();
 
             // redirect
@@ -73,7 +73,11 @@ class StudentController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+        // Get the student
+        $student = Student::find($id);
+
+        // show the view and pass the student
+        return View::make('students.show')->with('student', $student);
 	}
 
 
@@ -85,7 +89,11 @@ class StudentController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+        // Get the student
+        $student = Student::find($id);
+
+        // show the edit form and pass the nerd
+        return View::make('students.edit')->with('student', $student);
 	}
 
 
@@ -97,7 +105,34 @@ class StudentController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'name'       => 'required',
+            'email'      => 'required|email',
+            'birth_day'  => 'required|date',
+            'sex'        => 'required|numeric'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('students/' . $id . '/edit')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            // store
+            $student = Student::find($id);
+            $student->name       = Input::get('name');
+            $student->email      = Input::get('email');
+            $student->birth_day  = Input::get('birth_day');
+            $student->sex        = Input::get('sex');
+            $student->save();
+
+            // redirect
+            Session::flash('message', 'Successfully updated student!');
+            return Redirect::to('students');
+        }
 	}
 
 
@@ -109,7 +144,16 @@ class StudentController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        //get the student
+        $student = Student::find($id);
+
+        // delete the student
+        $student->delete();
+
+        // redirect
+        Session::flash('message', 'Successfully deleted the student!');
+
+        return Redirect::to('students');
 	}
 
 
