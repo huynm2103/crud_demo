@@ -36,7 +36,32 @@ class StudentController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        $rules = array(
+            'name'       => 'required',
+            'email'      => 'required|email',
+            'birth_day' => 'required|date',
+            'sex' => 'required|numeric'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('students/create')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            // store
+            $student = new Student();
+            $student->name       = Input::get('name');
+            $student->email      = Input::get('email');
+            $student->birth_day = Input::get('birth_day');
+            $student->sex = Input::get('sex');
+            $student->save();
+
+            // redirect
+            Session::flash('message', 'Successfully added student!');
+            return Redirect::to('students');
+        }
 	}
 
 

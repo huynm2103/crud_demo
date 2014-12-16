@@ -24,7 +24,7 @@
     <!-- Show error message -->
     {{ HTML::ul($errors->all()) }}
 
-    <form method="POST" action="{{ URL::to('nerds') }}">
+    <form method="POST" action="{{ URL::to('students') }}">
         <div class="form-group">
             <label>Name</label>
             <input class="form-control" name="name" type="text" />
