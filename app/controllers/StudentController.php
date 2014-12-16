@@ -24,7 +24,8 @@ class StudentController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+        // Redirect to view create
+		return View::make('students.create');
 	}
 
 
